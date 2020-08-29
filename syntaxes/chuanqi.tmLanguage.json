@@ -16,7 +16,10 @@
 		},
 		{
 			"include": "#comments"
-		}
+        },
+        {
+            "include": "#utils"
+        }
     ],
 	"repository": {
 		"keywords": {
@@ -28,21 +31,54 @@
             ]
 		},
 		"strings": {
-			"name": "string.quoted.double.chuanqi",
-			"begin": "<",
-			"end": ">",
-			"patterns": [
-				{
-					"name": "constant.character.escape.chuanqi",
-					"match": "\\."
-				}
-			]
+            "patterns": [
+                {
+                    "match":"(<)(.*?)(>)",
+                    "captures":{
+                        "1":{
+                            "name":"punctuation.paren.open"
+                        },
+                        "2":{
+                            "name":"string.quoted.double.chuanqi",
+                            "patterns": [
+                                {
+                                    "include": "#keywords"
+                                },
+                                {
+                                    "include": "#supports"
+                                },
+                                {
+                                    "include": "#variables"
+                                },
+                                {
+                                    "include": "#utils"
+                                },
+                                {
+                                    "name":"constant.character.escape.untitled",
+                                    "match":"\\."
+                                }
+                            ]
+                        },
+                        "3":{
+                            "name":"punctuation.paren.close"
+                        }
+                    }
+                },
+                {
+                    "match":"(messagebox|MESSAGEBOX|MessageBox)(.*)",
+                    "captures":{
+                        "1":{
+                            "name":"string.quoted.double.chuanqi"
+                        }
+                    }
+                }
+            ]
         },
         "supports":{
 			"patterns": [
                 {
                     "name": "support.function.chuanqi",
-                    "match":"\\b(give|goto|take|map|mapmove|monclear|MonGen|TimeRecall|BreakTimeRecall|hairstyle|haircolor|close|mov|inc|sum|movr|random|set|reset|check|small|large|equal|checkjob|Warr|Wizard|Taos|checkgold|checklevel|checkitem|genderman|checkbaggage|checkpkpoint|checkluckypoint|checkmonmap|checkduraeva|checkhum|checkitemw|takew|checkmagic|gold|messagebox|AUTOCOLOR|SCOLOR)\\b"
+                    "match":"\\b(break|BREAK|give|GIVE|goto|GOTO|take|TAKE|map|MAP|mapmove|MAPMOVE|monclear|MONCLEAR|MonGen|TimeRecall|BreakTimeRecall|hairstyle|HAIRSTYLE|haircolor|HAIRCOLOR|close|CLOSE|mov|MOV|inc|INC|sum|SUM|movr|MOVR|random|RANDOM|set|SET|reset|RESET|check|CHECK|small|SMALL|large|LARGE|equal|EQUAL|checkjob|CHECKJOB|Warr|Wizard|Taos|genderman|takew|TAKEW|gold|GOLD|messagebox|MESSAGEBOX|MessageBox|AUTOCOLOR|autocolor|SCOLOR|scolor|check[\\S]+|Check[\\S]+|CHECK[\\S]+)\\b"
                 },
                 {
 					"name": "support.variable.chuanqi",
@@ -60,6 +96,10 @@
                     "name":"variable.parameter.chuanqi",
                     "match":"\\[@.*\\]"
                 },
+                {
+                    "name":"variable.parameter.chuanqi",
+                    "match":"\\@\\w*"
+                },
 				{
 					"name": "variable.language.chuanqi",
 					"match": "(P|D|M|N|S|I|G|A|U|T)\\d+"
@@ -69,10 +109,224 @@
         "comments":{
             "patterns": [
 				{
-					"name": "comment.line.double-slash.chuanqi",
-					"match": ";.*"
+                    "begin": "(^[ \\t]+)?(?=;)",
+                    "beginCaptures": {
+                        "1": {
+                            "name": "punctuation.whitespace.comment.leading.chuanqi"
+                        }
+                    },
+                    "end": "(?!\\G)",
+                    "patterns": [
+                        {
+                            "begin": ";",
+                            "beginCaptures": {
+                                "0": {
+                                    "name": "punctuation.definition.comment.chuanqi"
+                                }
+                            },
+                            "end": "\\n",
+                            "name": "comment.line.semicolon.chuanqi"
+                        }
+                    ]
                 }
 			]
+        },
+        "utils":{
+            "patterns": [
+                {
+                    "captures": {
+                        "1": {
+                            "name": "keyword.other.definition.chuanqi"
+                        },
+                        "2": {
+                            "name": "constant.character.sign.chuanqi"
+                        }
+                    },
+                    "match": "\\b([a-zA-Z0-9_.-]+)\\b\\s*(=)"
+                },
+                {
+                    "match": "\\d+",
+                    "name": "variable.other.sign.chuanqi"
+                },
+                {
+                    "captures": {
+                        "1": {
+                            "name": "punctuation.definition.entity.txt"
+                        },
+                        "3": {
+                            "name": "punctuation.definition.entity.txt"
+                        }
+                    },
+                    "match": "(\\[)(.*?)(\\])",
+                    "name": "entity.name.section.group-title.txt"
+                },
+                {
+                    "captures": {
+                        "1": {
+                            "name": "punctuation.definition.entity.txt"
+                        },
+                        "3": {
+                            "name": "punctuation.definition.entity.txt"
+                        }
+                    },
+                    "match": "(\\{)(.*?)(\\})",
+                    "name": "entity.name.section.group-title.txt"
+                },
+                {
+                    "captures": {
+                        "1": {
+                            "name": "punctuation.definition.entity.txt"
+                        },
+                        "3": {
+                            "name": "punctuation.definition.entity.txt"
+                        }
+                    },
+                    "match": "(\\()(.*?)(\\))",
+                    "name": "entity.name.section.group-title.txt"
+                },
+                {
+                    "captures": {
+                        "1": {
+                            "name": "punctuation.definition.entity.txt"
+                        },
+                        "3": {
+                            "name": "punctuation.definition.entity.txt"
+                        }
+                    },
+                    "match": "(\\<)(.*?)(\\>)",
+                    "name": "entity.name.section.group-title.txt"
+                },
+                {
+                    "captures": {
+                        "1": {
+                            "name": "punctuation.definition.entity.txt"
+                        },
+                        "3": {
+                            "name": "punctuation.definition.entity.txt"
+                        }
+                    },
+                    "match": "(\\【)(.*?)(\\】)",
+                    "name": "entity.name.section.group-titlecn.txt"
+                },
+                {
+                    "captures": {
+                        "1": {
+                            "name": "punctuation.definition.entity.txt"
+                        },
+                        "3": {
+                            "name": "punctuation.definition.entity.txt"
+                        }
+                    },
+                    "match": "(\\（)(.*?)(\\）)",
+                    "name": "entity.name.section.group-titlecn.txt"
+                },
+                {
+                    "captures": {
+                        "1": {
+                            "name": "punctuation.definition.entity.txt"
+                        },
+                        "3": {
+                            "name": "punctuation.definition.entity.txt"
+                        }
+                    },
+                    "match": "(\\《)(.*?)(\\》)",
+                    "name": "entity.name.section.group-titlecn.txt"
+                },
+                {
+                    "captures": {
+                        "1": {
+                            "name": "string.quoted.single.txt"
+                        },
+                        "3": {
+                            "name": "string.quoted.single.txt"
+                        }
+                    },
+                    "match": "(\\')(.*?)(\\')",
+                    "name": "string.quoted.single.txt"
+                },
+                {
+                    "begin": "\"",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.begin.txt"
+                        }
+                    },
+                    "end": "\"",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.end.txt"
+                        }
+                    },
+                    "name": "string.quoted.double.txt"
+                },
+                {
+                    "begin": "‘",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.begin.txt"
+                        }
+                    },
+                    "end": "’",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.end.txt"
+                        }
+                    },
+                    "name": "string.quoted.singlecn.txt",
+                    "patterns": [
+                        {
+                            "match": "\\\\.",
+                            "name": "constant.character.escape.txt"
+                        }
+                    ]
+                },
+                {
+                    "begin": "“",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.begin.txt"
+                        }
+                    },
+                    "end": "”",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.end.txt"
+                        }
+                    },
+                    "name": "string.quoted.doublecn.txt",
+                    "patterns": [
+                        {
+                            "match": "\\\\.",
+                            "name": "constant.character.escape.txt"
+                        }
+                    ]
+                },
+                {
+                    "begin": "`",
+                    "beginCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.begin.txt"
+                        }
+                    },
+                    "end": "`",
+                    "endCaptures": {
+                        "0": {
+                            "name": "punctuation.definition.string.end.txt"
+                        }
+                    },
+                    "name": "string.quoted.doublecn.txt",
+                    "patterns": [
+                        {
+                            "match": "\\\\.",
+                            "name": "constant.character.escape.txt"
+                        }
+                    ]
+                },
+                {
+                    "match": "\\'|\\,|\\.|\\,|\\。|\\-|\\_|\\+|\\=|\\*|\\&|\\;|\\；|\\、|\\:|\\：|\\·|\\!|\\！|\\@|\\$|\\%|\\^|\\/|\\?|\\？|\\~|\\\\|\\||\\<|\\>|\\(|\\)|\\{|\\}|\\[|\\]|\\《|\\》|\\（|\\）|\\【|\\】|\\￥|\\°|\\√|\\×|\\*|\\○|\\●|\\◇|\\◆|\\□|\\■|\\△|\\▲|\\▽|\\▼|\\▷|\\▶|\\◁|\\◀|\\☆|\\★|\\♤|\\♠|\\♡|\\♥|\\♢|\\♦|\\♧|\\♣|\\☼|\\☀|\\☺|\\☻|\\◘|\\◙|\\☏|\\☎|\\☜|\\☞|\\◐|\\◑|\\☽|\\☾|\\♀|\\♂|\\☑|\\☒|\\✔|\\✘|\\㏂|\\㏘|\\✎|\\✐|\\⊙|\\◎|\\✉|\\❤|\\▁|\\▂|\\▄|\\▇|\\☢|\\✄|\\☂|\\☉|\\☣|\\☄|\\☯|\\☪|\\☭|\\❂|\\✪|\\❉|\\❈|\\✲|\\◈|\\▣|\\⊿|\\⊕|\\Θ|\\▣|\\✚|\\✖|\\✙|\\۩|\\▫|\\❀|\\•|\\▪|\\⊹|\\✲|\\❦|\\◕|\\♞|\\☃|\\☪|\\®|\\©|\\™|\\℗|\\囍|\\№|\\☠|\\◤|\\◥|\\◣|\\◢|\\↖|\\↙|\\↗|\\↘|\\↑|\\↓|\\←|\\→|\\↔|\\↕|\\╱|\\╲|\\☍|\\☌|\\☋|\\▩|\\▨|\\▤|\\▥|\\▧|\\▦|\\㏇|\\➴|\\➵|\\✈|\\〄|\\㊤|\\㊥|\\㊦|\\㊧|\\㊨|\\㊚|\\㊛|\\㊣|\\㊙|\\㉿|\\㈱|\\⊱|\\⊰|\\⋌|\\§|\\‖|\\Ψ|\\๑|\\∮|\\♯|\\♭|\\¶|\\♬|\\♫|\\♪|\\♩|\\✧|\\✦|\\✢|\\✫|\\✡|\\✯|\\❉|\\❆|\\❶|\\❷|\\❸|\\❹|\\❺|\\❻|\\❼|\\❽|\\❾|\\❿|\\①|\\②|\\③|\\④|\\⑤|\\⑥|\\⑦|\\⑧|\\⑨|\\⑩|\\Ⅰ|\\Ⅱ|\\Ⅲ|\\Ⅳ|\\Ⅴ|\\Ⅵ|\\Ⅶ|\\Ⅷ|\\Ⅸ|\\Ⅹ|\\㊀|\\㊁|\\㊂|\\㊃|\\㊄|\\㊅|\\㊆|\\㊇|\\㊈|\\㊉|\\α|\\β|\\γ|\\δ|\\ε|\\ζ|\\η|\\θ|\\ι|\\κ|\\λ|\\μ|\\φ|\\ω|\\π|\\Σ|\\ρ|\\τ|\\Φ|\\Ψ|\\Ω|\\ψ|\\З|\\з|\\л|\\Л|\\ч|\\Ч|\\э|\\Э|\\ю|\\Ю|\\ф|\\Ф|\\¿|\\『|\\』|\\〔|\\〕|\\﹃|\\﹄|\\︻|\\︼|\\「|\\」|\\﹁|\\﹂|\\﹎|\\﹊|\\~|\\˜|\\ˇ|\\ˆ|\\﹏|\\◔|\\◓|\\◒|\\◌|\\◍|\\♔|\\♕|\\♖|\\♙|\\ღ|\\۵|\\≠|\\±|\\≤|\\≥|\\∈|\\∩|\\∪|\\÷|\\≌|\\∽|\\≮|\\≯|\\℃|\\℉|\\¤|\\λ|\\‰|\\∴|\\∵|\\½|\\¼|\\⅓|\\∠|\\⊥|\\≈|\\∫|\\➢|\\➛|\\➤|\\↺|\\↻|\\➭|\\↢|\\↣|\\⇧|\\⇨|\\⇦|\\⇩|\\⇑|\\⇒|\\⇓|\\⇔|\\⇕|\\⇐",
+                    "name": "constant.character.sign.txt"
+                }
+            ]
         }
 	},
 	"scopeName": "source.txt"
