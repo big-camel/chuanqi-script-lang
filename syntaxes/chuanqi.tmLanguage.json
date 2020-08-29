@@ -68,6 +68,9 @@
                     "match":"(messagebox|MESSAGEBOX|MessageBox)(.*)",
                     "captures":{
                         "1":{
+                            "name": "support.function.chuanqi"
+                        },
+                        "2":{
                             "name":"string.quoted.double.chuanqi"
                         }
                     }
