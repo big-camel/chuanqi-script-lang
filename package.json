@@ -1,8 +1,9 @@
 {
     "name": "chuanqi-script-lang",
+    "publisher": "itellyou-com",
     "displayName": "ChuanQi Script Lang",
     "description": "传奇脚本语言",
-    "version": "0.0.1",
+    "version": "1.0.0",
     "engines": {
         "vscode": "^1.48.0"
     },

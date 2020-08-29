@@ -1,28 +1,29 @@
 {
 	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
-	"name": "ChuanQi",
+    "name": "ChuanQi",
 	"patterns": [
 		{
 			"include": "#keywords"
 		},
 		{
 			"include": "#strings"
+		},
+		{
+			"include": "#supports"
+		},
+		{
+			"include": "#variables"
+		},
+		{
+			"include": "#comments"
 		}
-	],
+    ],
 	"repository": {
 		"keywords": {
 			"patterns": [
                 {
                     "name": "keyword.control.chuanqi",
-                    "match": "\\b(give|take|map|mapmove|monclear|MonGen|TimeRecall|BreakTimeRecall|hairstyle|haircolor|close|mov|inc|sum|movr|random|set|reset|check|small|large|equal|checkjob|Warr|Wizard|Taos|checkgold|checklevel|checkitem|genderman|checkbaggage|checkpkpoint|checkluckypoint|checkmonmap|checkduraeva|checkhum|checkitemw|takew|checkmagic|gold|messagebox)\\b"
-                },
-                {
-                    "name":"keyword.operator.chuanqi",
-                    "match": "\\b?(goto)\\b"
-                },
-                {
-                    "name":"keyword.other.chuanqi",
-                    "match": "\\b?(#|$)\\S+\\b"
+                    "match": "#\\S+"
                 }
             ]
 		},
@@ -33,24 +34,44 @@
 			"patterns": [
 				{
 					"name": "constant.character.escape.chuanqi",
-					"match": "\\\\."
+					"match": "\\."
 				}
 			]
         },
         "supports":{
 			"patterns": [
-				{
-					"name": "support.function.chuanqi",
-					"match": "\\[@.*\\]"
+                {
+                    "name": "support.function.chuanqi",
+                    "match":"\\b(give|goto|take|map|mapmove|monclear|MonGen|TimeRecall|BreakTimeRecall|hairstyle|haircolor|close|mov|inc|sum|movr|random|set|reset|check|small|large|equal|checkjob|Warr|Wizard|Taos|checkgold|checklevel|checkitem|genderman|checkbaggage|checkpkpoint|checkluckypoint|checkmonmap|checkduraeva|checkhum|checkitemw|takew|checkmagic|gold|messagebox|AUTOCOLOR|SCOLOR)\\b"
+                },
+                {
+					"name": "support.variable.chuanqi",
+					"match": "\\$[0-9a-zA-Z_.]+"
+				},
+                {
+					"name": "support.variable.chuanqi",
+					"match": "@@[a-zA-Z_]+\\d+"
 				}
 			]
         },
         "variables":{
             "patterns": [
+                {
+                    "name":"variable.parameter.chuanqi",
+                    "match":"\\[@.*\\]"
+                },
 				{
 					"name": "variable.language.chuanqi",
-					"match": "$(P|D|M|N|S|I|G|A|U|T)\\d+"
-				}
+					"match": "(P|D|M|N|S|I|G|A|U|T)\\d+"
+                }
+			]
+        },
+        "comments":{
+            "patterns": [
+				{
+					"name": "comment.line.double-slash.chuanqi",
+					"match": ";.*"
+                }
 			]
         }
 	},
