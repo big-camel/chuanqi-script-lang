@@ -1,0 +1,58 @@
+{
+	"$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+	"name": "ChuanQi",
+	"patterns": [
+		{
+			"include": "#keywords"
+		},
+		{
+			"include": "#strings"
+		}
+	],
+	"repository": {
+		"keywords": {
+			"patterns": [
+                {
+                    "name": "keyword.control.chuanqi",
+                    "match": "\\b(give|take|map|mapmove|monclear|MonGen|TimeRecall|BreakTimeRecall|hairstyle|haircolor|close|mov|inc|sum|movr|random|set|reset|check|small|large|equal|checkjob|Warr|Wizard|Taos|checkgold|checklevel|checkitem|genderman|checkbaggage|checkpkpoint|checkluckypoint|checkmonmap|checkduraeva|checkhum|checkitemw|takew|checkmagic|gold|messagebox)\\b"
+                },
+                {
+                    "name":"keyword.operator.chuanqi",
+                    "match": "\\b?(goto)\\b"
+                },
+                {
+                    "name":"keyword.other.chuanqi",
+                    "match": "\\b?(#|$)\\S+\\b"
+                }
+            ]
+		},
+		"strings": {
+			"name": "string.quoted.double.chuanqi",
+			"begin": "<",
+			"end": ">",
+			"patterns": [
+				{
+					"name": "constant.character.escape.chuanqi",
+					"match": "\\\\."
+				}
+			]
+        },
+        "supports":{
+			"patterns": [
+				{
+					"name": "support.function.chuanqi",
+					"match": "\\[@.*\\]"
+				}
+			]
+        },
+        "variables":{
+            "patterns": [
+				{
+					"name": "variable.language.chuanqi",
+					"match": "$(P|D|M|N|S|I|G|A|U|T)\\d+"
+				}
+			]
+        }
+	},
+	"scopeName": "source.txt"
+}

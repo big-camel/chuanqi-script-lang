@@ -1,0 +1,25 @@
+{
+    "name": "chuanqi-script-lang",
+    "displayName": "ChuanQi Script Lang",
+    "description": "传奇脚本语言",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.48.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "chuanqi",
+            "aliases": ["ChuanQi", "chuanqi"],
+            "extensions": [".txt"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "chuanqi",
+            "scopeName": "source.txt",
+            "path": "./syntaxes/chuanqi.tmLanguage.json"
+        }]
+    }
+}
