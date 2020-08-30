@@ -1,3 +1,3 @@
 # chuanqi-script-lang README
 
-传奇脚本命令VSCode提示插件
+传奇脚本命令VSCode语法高亮提示插件
